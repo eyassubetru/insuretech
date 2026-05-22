@@ -1,5 +1,26 @@
 @import "tailwindcss";
+@keyframes borderMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
 
-body{
-    background-color: black;
+.animate-borderMove {
+  animation: borderMove 6s linear infinite;
+}
+
+@keyframes softPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+}
+
+.animate-softPulse {
+  animation: softPulse 2.5s infinite;
 }

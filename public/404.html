@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>404 - Document Not Found</title>
+
+    <style media="screen">
+      :root {
+        --primary-red: #991b1b;    /* Tailwind's red-800 */
+        --accent-amber: #b45309;   /* Tailwind's amber-700 */
+        --bg-zinc: #f4f4f5;         /* Tailwind's zinc-100 */
+        --text-dark: #27272a;       /* Tailwind's zinc-800 */
+        --text-light: #71717a;      /* Tailwind's zinc-500 */
+      }
+
+      body { 
+        background: var(--bg-zinc); 
+        color: var(--text-dark); 
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+        margin: 0; 
+        padding: 0; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 480px;
+        margin: 20px;
+      }
+
+      #message { 
+        background: white; 
+        padding: 40px 32px; 
+        border-radius: 16px; 
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e4e4e7;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Premium Top Gradient Ribbon */
+      #message::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: gradient(linear, left top, right top, from(var(--primary-red)), to(var(--accent-amber)));
+        background: linear-gradient(to right, var(--primary-red), var(--accent-amber));
+      }
+
+      .icon-wrapper {
+        width: 64px;
+        height: 64px;
+        background-color: #fee2e2;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+      }
+
+      .icon-wrapper span {
+        font-size: 28px;
+      }
+
+      #message h2 { 
+        color: var(--primary-red); 
+        font-weight: 800; 
+        font-size: 48px; 
+        margin: 0 0 4px 0; 
+        letter-spacing: -0.05em;
+        font-family: monospace;
+      }
+
+      #message h1 { 
+        font-size: 22px; 
+        font-weight: 700; 
+        color: var(--text-dark); 
+        margin: 0 0 12px 0;
+        letter-spacing: -0.025em;
+      }
+
+      #message p { 
+        line-height: 150%; 
+        margin: 0 0 28px 0; 
+        font-size: 14px; 
+        color: var(--text-light);
+      }
+
+      #message a { 
+        display: inline-block; 
+        text-align: center; 
+        background: var(--primary-red); 
+        text-decoration: none; 
+        color: white; 
+        padding: 12px 24px; 
+        border-radius: 8px; 
+        font-size: 14px;
+        font-weight: 600;
+        transition: background-color 0.15s ease;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      }
+
+      #message a:hover {
+        background: #7f1d1d; /* Darker red-900 on hover */
+      }
+
+      /* Responsive Rules for Small Devices */
+      @media (max-width: 480px) {
+        body { 
+          background: white; 
+          align-items: flex-start;
+        }
+        .container {
+          margin: 0;
+        }
+        #message { 
+          padding: 60px 24px;
+          border-radius: 0; 
+          border: none;
+          box-shadow: none; 
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="message">
+        <div class="icon-wrapper">
+          <span>📄</span>
+        </div>
+        
+        <h2>404</h2>
+        <h1>Page Not Found</h1>
+        
+        <a href="/home">Return to Home</a>
+      </div>
+    </div>
+  </body>
+</html>

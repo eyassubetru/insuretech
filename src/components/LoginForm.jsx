@@ -69,6 +69,7 @@ const LoginForm = () => {
 
       if (data?.success && data?.customToken) {
         await signInWithCustomToken(auth, data.customToken);
+        localStorage.setItem("customerPhone", cleanNumber);
 
         setResponse({
           status: "success",
@@ -95,91 +96,137 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/tournament");
+      navigate("/home");
     }
   }, [user]);
 
 
   return (
-    <div className="min-h-svh flex items-center justify-center bg-[#05160f] p-4 fixed inset-0">
+    <div className="fixed inset-0 overflow-y-auto bg-[#140909] px-4 py-8 font-sans">
 
-      <div className="w-full max-w-md bg-white rounded-[2.5rem] shadow-xl overflow-hidden">
+  {/* Background Glow */}
+  <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="absolute -top-32 -left-32 h-80 w-80 rounded-full bg-red-700/10 blur-[120px]" />
+    <div className="absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-red-500/10 blur-[120px]" />
+  </div>
 
-        <div className="p-6 sm:p-10 flex flex-col gap-4">
+  <div className="relative z-10 mx-auto w-full max-w-md rounded-[2rem] border border-red-900/20 bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.45)]">
 
-          <div className="text-center">
-            <h2 className="text-3xl font-black text-green-900 uppercase">
-              Login
-            </h2>
-            <p className="text-xs text-gray-400 uppercase tracking-widest">
-              FIFA Tournament 2026
-            </p>
-          </div>
+    <div className="px-6 py-8 sm:px-10">
 
-          {/* Phone */}
+      {/* Header */}
+      <div className="mb-8 text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-red-700">
+          Welcome Back
+        </h2>
+
+        <p className="mt-2 text-sm text-slate-500">
+          Login to your account
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-5">
+
+        {/* Phone */}
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+            Phone Number
+          </label>
+
           <PhoneInput
             country={"et"}
             value={phoneNumber}
             onChange={(value, country, e, formattedValue) => {
               setPhoneNumber(formattedValue);
             }}
+            containerClass="!w-full"
             inputStyle={{
               width: "100%",
-              height: "50px",
-              backgroundColor: "#f0fdf4",
-              border: "2px solid #dcfce7",
+              height: "52px",
+              backgroundColor: "#fff",
+              border: "1px solid #fecaca",
               borderRadius: "16px",
-              fontWeight: "700",
-              color: "#166534",
+              fontWeight: "600",
+              color: "#111827",
+              fontSize: "14px",
+            }}
+            buttonStyle={{
+              backgroundColor: "transparent",
+              border: "none",
+              borderRadius: "16px 0 0 16px",
             }}
           />
+        </div>
 
-          {/* Password */}
+        {/* Password */}
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+            Password
+          </label>
+
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full h-[50px] px-4 bg-green-50 border-2 border-green-100 rounded-2xl font-bold text-green-900"
+            className="h-[52px] w-full rounded-2xl border border-red-200 bg-white px-4 font-medium text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:border-red-500"
           />
-
-          {/* Response */}
-          {response.message && (
-            <div
-              className={`text-center p-3 rounded-xl text-xs font-bold ${
-                response.status === "error"
-                  ? "bg-red-50 text-red-600"
-                  : "bg-green-50 text-green-700"
-              }`}
-            >
-              {response.message}
-            </div>
-          )}
-
-          {/* Submit */}
-          <button
-            onClick={login}
-            disabled={isLoading}
-            className={`h-12 rounded-2xl font-black uppercase ${
-              isLoading
-                ? "bg-gray-300 text-gray-500"
-                : "bg-green-600 text-white"
-            }`}
-          >
-            {isLoading ? "Logging in..." : "Login"}
-          </button>
-           <div 
-                    className='text-center text-[13px]  text-green-800 uppercase tracking-widest ml-1'
-                    onClick={()=>{navigate('/')}}
-                    >
-                        <p className='cursor-pointer'>Don't have account
-                            <span className='text-green-900 underline font-bold'>SignUp</span>
-                        </p>
-                    </div>
         </div>
-        
+
+        {/* Response */}
+        {response.message && (
+          <div
+            className={`rounded-2xl border p-3 text-center text-sm font-medium
+              ${
+                response.status === "error"
+                  ? "border-red-200 bg-red-50 text-red-600"
+                  : "border-green-200 bg-green-50 text-green-700"
+              }
+            `}
+          >
+            {response.message}
+          </div>
+        )}
+
+        {/* Submit */}
+        <button
+          onClick={login}
+          disabled={isLoading}
+          className={`
+            flex h-14 w-full items-center justify-center rounded-2xl text-sm font-semibold uppercase tracking-[0.15em] transition-all
+            
+            ${
+              isLoading
+                ? "cursor-not-allowed bg-slate-200 text-slate-500"
+                : "bg-red-600 text-white hover:bg-red-700 active:scale-[0.99]"
+            }
+          `}
+        >
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+              Logging In
+            </span>
+          ) : (
+            "Login"
+          )}
+        </button>
+
+        {/* Signup */}
+        <div className="text-center text-sm text-slate-500">
+          Don’t have an account?{" "}
+          <span
+            onClick={() => navigate("/")}
+            className="cursor-pointer font-semibold text-red-600 hover:underline"
+          >
+            Sign Up
+          </span>
+        </div>
+
       </div>
     </div>
+  </div>
+</div>
   );
 };
 

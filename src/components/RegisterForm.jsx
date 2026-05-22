@@ -197,7 +197,7 @@ const RegisterForm = () => {
     useEffect(() => {
         if (user) {
             console.log("user", user)
-            navigate("/tournament");
+            navigate("/home");
         }
     }, [user]);
 
@@ -228,223 +228,206 @@ const RegisterForm = () => {
 
 
 
-
-
-
     return (
 
-        <div className="min-h-svh flex items-center justify-center bg-[#05160f] p-4 font-sans fixed inset-0">
-            {/* Background Ambience */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-24 -left-24 w-96 h-96 bg-green-600/10 rounded-full blur-[100px]" />
-                <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px]" />
-            </div>
+        <div className="fixed inset-0 overflow-y-auto bg-[#140909] px-4 py-8 font-sans">
+  
+  {/* Background Glow */}
+  <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="absolute -top-32 -left-32 h-80 w-80 rounded-full bg-red-700/10 blur-[120px]" />
+    <div className="absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-red-500/10 blur-[120px]" />
+  </div>
 
-            <div className="w-full max-w-md bg-white rounded-[2.5rem] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)] overflow-hidden relative z-10">
+  <div className="relative z-10 mx-auto w-full max-w-md rounded-[2rem] border border-red-900/20 bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.45)]">
 
-                {/* Hero Header */}
-                <div className="relative h-36 sm:h-44 overflow-hidden bg-gray-200">
-                    <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-black/10 z-10" />
-                    <img
-                        src="/hero-image.jpg"
-                        alt="Tournament Banner"
-                        className="w-full h-full object-cover"
-                    />
-                </div>
+    {/* Header */}
+    <div className="border-b border-red-100 px-6 py-8 sm:px-10">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-red-700">
+          Create Account
+        </h2>
 
-                <form onSubmit={register} className="px-6 py-6 sm:px-10 sm:pb-8 flex flex-col gap-4 sm:gap-5">
-                    <div className="text-center">
-                        <h2 className="text-2xl sm:text-3xl font-black text-green-900 uppercase tracking-tighter italic leading-tight">
-                            Official <span className="text-green-600">Entry</span>
-                        </h2>
-                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">
-                            FIFA Tournament 2026
-                        </p>
-                    </div>
+        <p className="mt-2 text-sm text-slate-500">
+          Register to continue securely
+        </p>
+      </div>
+    </div>
 
-                    {/* Phone Input Group */}
-                    <div className="flex flex-col gap-1.5">
-                        <label htmlFor="phoneNumber" className="text-[10px] font-black text-green-800/50 uppercase tracking-widest ml-1">
-                            Contact Number
-                        </label>
-                        <PhoneInput
+    {/* Form */}
+    <form
+      onSubmit={register}
+      className="flex flex-col gap-5 px-6 py-8 sm:px-10"
+    >
 
-                            required
+      {/* Phone */}
+      <div className="flex flex-col gap-2">
+        <label
+          htmlFor="phoneNumber"
+          className="text-xs font-semibold uppercase tracking-wider text-slate-600"
+        >
+          Phone Number
+        </label>
 
-                            id="phoneNumber"
-                            country={"et"}
-                            value={phoneNumber}
-                            onChange={(value, country, e, formattedValue) => {
-                                setPhoneNumber(formattedValue); // Keeps your logic: includes "+"
+        <PhoneInput
+          required
+          id="phoneNumber"
+          country={"et"}
+          value={phoneNumber}
+          onChange={(value, country, e, formattedValue) => {
+            setPhoneNumber(formattedValue);
+          }}
+          containerClass="!w-full"
+          inputStyle={{
+            width: "100%",
+            height: "52px",
+            backgroundColor: "#fff",
+            border: "1px solid #fecaca",
+            borderRadius: "16px",
+            fontWeight: "600",
+            color: "#111827",
+            fontSize: "14px",
+          }}
+          buttonStyle={{
+            backgroundColor: "transparent",
+            border: "none",
+            borderRadius: "16px 0 0 16px",
+          }}
+          inputProps={{
+            id: "phoneNumber",
+            name: "phoneNumber",
+            required: true,
+            placeholder: "Enter phone number",
+          }}
+        />
+      </div>
 
-                            }}
-                            containerClass="!w-full"
-                            inputStyle={{
-                                width: "100%",
-                                height: "50px",
-                                backgroundColor: "#f0fdf4",
-                                border: "2px solid #dcfce7",
-                                borderRadius: "16px",
-                                fontWeight: "700",
-                                color: "#166534",
-                                fontSize: "14px",
-                            }}
-                            buttonStyle={{
-                                backgroundColor: "transparent",
-                                border: "none",
-                                borderRadius: "16px 0 0 16px",
-                            }}
-                            inputProps={{
-                                id: "phoneNumber",
-                                name: "phoneNumber",
-                                required: true,
-                                placeholder: "111111",
-                            }}
-                        />
-                    </div>
+      {/* OTP */}
+      <div className="flex flex-col gap-2">
+        <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+          OTP Verification
+        </label>
 
-                    {/* OTP Grid - Restored side-by-side logic */}
-                    <div className="flex flex-col gap-1.5">
-                        <label className="text-[10px] font-black text-green-800/50 uppercase tracking-widest ml-1">
-                            OTP Verification
-                        </label>
-                        <div className="flex gap-2 w-full">
-                            <input
-                                type="text"
-                                required
-                                value={OTP}
-                                onChange={(e) => setOTP(e.target.value)}
-                                placeholder="OTP Code"
-                                className="min-w-0 flex-1 h-[50px] px-4 bg-green-50/50 border-2 border-green-100 rounded-2xl focus:outline-none focus:border-green-600 focus:bg-white transition-all font-bold text-green-900 placeholder:text-green-200"
-                            />
-                            <button
-                                type="button"
-                                disabled={isOTPLoading || countdown > 0}
-                                onClick={handleSendOTP}
-                                className={`
-                                shrink-0 min-w-fit px-3 sm:px-5 rounded-2xl 
-                                transition-all uppercase tracking-widest whitespace-nowrap 
-                                border-2 font-black text-[10px] sm:text-[11px]
-                                
-                                ${countdown > 0
-                                        ? "bg-gray-200 border-gray-300 text-gray-500 cursor-not-allowed"
-                                        : "bg-green-100 hover:bg-green-200 border-green-200 text-green-700 active:scale-95"
-                                    }
-                                `}
-                            >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <input
+            type="text"
+            required
+            value={OTP}
+            onChange={(e) => setOTP(e.target.value)}
+            placeholder="Enter OTP"
+            className="h-[52px] w-full rounded-2xl border border-red-200 bg-white px-4 font-medium text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:border-red-500"
+          />
 
-                                {isLoading || isOTPLoading
-                                    ? "..."
-                                    : countdown > 0
-                                        ? formatTime(countdown)
-                                        : "Send OTP"
-                                }
-
-                            </button>
-                        </div>
-                    </div>
-
-                     {  
-                     isOTPSet ?
-                     
-                        <div className="flex flex-col gap-1.5">
-                        <label htmlFor='password' className="text-[10px] font-black text-green-800/50 uppercase tracking-widest ml-1">
-                            PASSWORD
-                        </label>
-                        <div className="flex gap-2 w-full justify-center relative">
-                            <input
-                                id='password'
-                                type={ShowPassword ? "text" : 'password'}
-                                required
-
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Password"
-                                className="min-w-0 flex-1 h-[50px] px-4 bg-green-50/50 border-2 border-green-100 rounded-2xl focus:outline-none focus:border-green-600 focus:bg-white transition-all font-bold text-green-900 placeholder:text-green-200"
-                            />
-
-                            <button
-                                className='absolute right-5 top-3 z-10'
-                                type='button'
-                                onClick={() => (SetShowPassword((prev) => !prev))}
-                            >
-                                {
-                                    ShowPassword ?
-                                    <FaEyeSlash className='text-2xl' /> 
-                                     
-                                     : 
-                                     <FaEye className='text-2xl' />
-                                }
-                            </button>
-
-                        </div>
-                    </div> 
-                    :
-                    ""
-                    }
-
-                    {/* Response Message Logic */}
-                    {response.message && (
-                        <div className={`text-center p-3 rounded-xl border-2 font-bold text-xs animate-in fade-in slide-in-from-top-2 duration-300 ${response.status === 'error'
-                            ? "bg-red-50 border-red-100 text-red-600"
-                            : "bg-green-50 border-green-100 text-green-700"
-                            }`}>
-                            {response.message}
-                        </div>
-                    )}
-
-                    {/* Submit Action */}
-                    <button
-                        type="submit"
-                        disabled={isLoading}
-                        className={`w-full h-14 rounded-2xl font-black uppercase tracking-[0.2em] transition-all flex justify-center items-center text-sm shadow-lg
-                            ${(isLoading || OTP.length === 0)
-                                ? "bg-gray-200 text-gray-400 cursor-not-allowed shadow-none"
-                                : "bg-green-600 text-white hover:bg-green-700 active:translate-y-1 shadow-green-900/20"
-                            }`}
-                    >
-                        {isLoading ? (
-                            <span className="flex items-center gap-2">
-                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                Processing
-                            </span>
-                        ) : "Register and Login"}
-                    </button>
-
-                    <div
-                        className='text-center text-[13px]  text-green-800 uppercase tracking-widest ml-1'
-                        onClick={() => { navigate('/login') }}
-                    >
-                        <p className='cursor-pointer'>already have account
-                            <span className='text-green-900 underline font-bold'>Login</span>
-                        </p>
-                        <a href=""></a>
-                    </div>
-                </form>
-
-                {/* Sponsor Section */}
-                <div className="bg-gray-50/80 border-t border-gray-100 p-6 flex flex-col items-center">
-                    <p className="text-[10px] font-black text-green-900/30 uppercase tracking-[0.4em] mb-4">
-                        Tournament Partners
-                    </p>
-                    <div className="flex flex-col items-center group cursor-default">
-                        <div className="relative">
-                            <img
-                                src="/eReceipt.png"
-                                alt="eReceipt"
-                                className="h-6 w-auto transition-all duration-700 ease-in-out 
-                        opacity-90 
-                       animate-[pulse_3s_ease-in-out_infinite] 
-                       group-hover:animate-none group-hover:grayscale-0 group-hover:opacity-100"
-                            />
-                        </div>
-                        <span className="text-[10px] font-[1000] text-green-800/40 group-hover:text-green-600 transition-colors uppercase tracking-widest mt-1">
-                            eReceipt
-                        </span>
-                    </div>
-                </div>
-            </div>
+          <button
+            type="button"
+            disabled={isOTPLoading || countdown > 0}
+            onClick={handleSendOTP}
+            className={`
+              h-[52px] rounded-2xl px-5 text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap
+              
+              ${
+                countdown > 0
+                  ? "cursor-not-allowed bg-slate-200 text-slate-500"
+                  : "bg-red-600 text-white hover:bg-red-700"
+              }
+            `}
+          >
+            {isLoading || isOTPLoading
+              ? "..."
+              : countdown > 0
+              ? formatTime(countdown)
+              : "Send OTP"}
+          </button>
         </div>
+      </div>
+
+      {/* Password */}
+      {isOTPSet && (
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="password"
+            className="text-xs font-semibold uppercase tracking-wider text-slate-600"
+          >
+            Password
+          </label>
+
+          <div className="relative">
+            <input
+              id="password"
+              type={ShowPassword ? "text" : "password"}
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              className="h-[52px] w-full rounded-2xl border border-red-200 bg-white px-4 pr-14 font-medium text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:border-red-500"
+            />
+
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500"
+              type="button"
+              onClick={() => SetShowPassword((prev) => !prev)}
+            >
+              {ShowPassword ? (
+                <FaEyeSlash className="text-xl" />
+              ) : (
+                <FaEye className="text-xl" />
+              )}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Response */}
+      {response.message && (
+        <div
+          className={`rounded-2xl border p-3 text-center text-sm font-medium
+            ${
+              response.status === "error"
+                ? "border-red-200 bg-red-50 text-red-600"
+                : "border-green-200 bg-green-50 text-green-700"
+            }
+          `}
+        >
+          {response.message}
+        </div>
+      )}
+
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={isLoading}
+        className={`
+          flex h-14 w-full items-center justify-center rounded-2xl text-sm font-semibold uppercase tracking-[0.15em] transition-all
+          
+          ${
+            isLoading || OTP.length === 0
+              ? "cursor-not-allowed bg-slate-200 text-slate-500"
+              : "bg-red-600 text-white hover:bg-red-700 active:scale-[0.99]"
+          }
+        `}
+      >
+        {isLoading ? (
+          <span className="flex items-center gap-2">
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+            Processing
+          </span>
+        ) : (
+          "Register"
+        )}
+      </button>
+
+      {/* Login */}
+      <div className="text-center text-sm text-slate-500">
+        Already have an account?{" "}
+        <span
+          onClick={() => navigate("/login")}
+          className="cursor-pointer font-semibold text-red-600 hover:underline"
+        >
+          Login
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
     );
 }
 

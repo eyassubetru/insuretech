@@ -1,13 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 
-import Tournaments from "./pages/Tournaments";
-import TournamentDetail from "./pages/TournamentDetail";
+
 import RegisterForm from "./components/RegisterForm";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginForm from "./components/LoginForm";
-import UserProfilePage from "./pages/UserProfilePage";
+
 import Header from "./components/Header";
-import PaymentPage from "./pages/PaymentPage";
+import HomePage from "./pages/HomePage";
+import CustomerHomePage from "./components/customer_home_page";
+import PoliciesPage from "./pages/PoliciesPage";
+import  Quote  from "./pages/Quote";
+import Renew from "./pages/Renew";
+
+import LoadingScreen from "./components/LoadingScreen";
 function App() {
   return (
     <Routes>
@@ -18,48 +23,44 @@ function App() {
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route
-          path="/tournament"
+          path="/home"
           element={
             <>
               <Header />
-              <Tournaments />
+              <CustomerHomePage />
+            </>
+          }
+        />
+        <Route
+          path="/policies"
+          element={
+            <>
+              <Header />
+              <PoliciesPage />
             </>
           }
         />
 
         <Route
-          path="/tournament/:id"
+          path="/quote"
           element={
             <>
               <Header />
-              <TournamentDetail />
+              <Quote />
             </>
           }
         />
 
         <Route
-          path="/profile"
+          path="/renew"
           element={
             <>
               <Header />
-              <UserProfilePage />
-            </>
-          }
-        />
-
-         <Route
-          path="/payment"
-          element={
-            <>
-              <Header />
-              <PaymentPage />
+              <Renew />
             </>
           }
         />
       </Route>
-
-      
-
     
     </Routes>
   );
