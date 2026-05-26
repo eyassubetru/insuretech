@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Eye, ChevronUp } from "lucide-react";
 
 const PoliciesPage = () => {
   const documents = [
@@ -54,11 +55,11 @@ const PoliciesPage = () => {
       <header className="bg-gradient-to-r from-red-800 via-red-700 to-amber-700 text-white py-8 px-6 shadow-md">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl font-bold mt-2 tracking-tight">
-            Official Document & Policy 
+            Official Document & Policy
           </h1>
-      
+
         </div>
-        
+
       </header>
 
       {/* Main Responsive Grid Container */}
@@ -69,21 +70,19 @@ const PoliciesPage = () => {
             const isExpanded = activeId === doc.id;
 
             return (
-              <div 
+              <div
                 key={doc.id}
-                className={`bg-white border rounded-xl shadow-sm transition-all duration-200 flex flex-col overflow-hidden ${
-                  isExpanded ? 'border-red-400 ring-2 ring-red-50 md:col-span-2' : 'border-zinc-200 hover:border-zinc-300'
-                }`}
+                className={`bg-white border rounded-xl shadow-sm transition-all duration-200 flex flex-col overflow-hidden ${isExpanded ? 'border-red-400 ring-2 ring-red-50 md:col-span-2' : 'border-zinc-200 hover:border-zinc-300'
+                  }`}
               >
                 {/* Horizontal Content Panel */}
                 <div className="p-4 flex gap-4 items-start">
-                  
+
                   {/* Document Thumbnail Trigger */}
-                  <div 
+                  <div
                     onClick={() => isPdf && setActiveId(isExpanded ? null : doc.id)}
-                    className={`w-16 h-20 sm:w-20 sm:h-24 rounded border overflow-hidden shrink-0 bg-zinc-100 relative shadow-inner group ${
-                      isPdf ? 'cursor-pointer border-zinc-300 hover:border-red-400' : 'border-zinc-200'
-                    }`}
+                    className={`w-16 h-20 sm:w-20 sm:h-24 rounded border overflow-hidden shrink-0 bg-zinc-100 relative shadow-inner group ${isPdf ? 'cursor-pointer border-zinc-300 hover:border-red-400' : 'border-zinc-200'
+                      }`}
                   >
                     {isPdf ? (
                       <>
@@ -97,7 +96,7 @@ const PoliciesPage = () => {
                         </object>
                         {/* Overlay to give crisp modern visual feedback on hover */}
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-red-950/10 transition-colors flex items-center justify-center">
-                          <span className="hidden md:flex bg-white/90 text-zinc-800 text-[9px] font-bold px-1 py-0.5 rounded shadow opacity-0 group-hover:opacity-100 transition-opacity">
+                          <span className=" bg-white/90 text-zinc-800 text-[9px] font-bold px-1 py-0.5 rounded shadow opacity-0 group-hover:opacity-100 transition-opacity">
                             {isExpanded ? "Close" : "Expand"}
                           </span>
                         </div>
@@ -130,16 +129,33 @@ const PoliciesPage = () => {
                     {/* Footer Utility Actions */}
                     <div className="flex items-center gap-2 mt-2">
                       {isPdf && (
-                        <button
-                          onClick={() => setActiveId(isExpanded ? null : doc.id)}
-                          className={`hidden md:flex text-xs font-semibold px-2.5 py-1 rounded transition-colors ${
-                            isExpanded 
-                              ? 'bg-zinc-900 text-white hover:bg-zinc-800' 
-                              : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
-                          }`}
-                        >
-                          {isExpanded ? 'Collapse' : 'Preview Live'}
-                        </button>
+                       <button
+  onClick={() => setActiveId(isExpanded ? null : doc.id)}
+  className={`
+    inline-flex items-center gap-1.5
+    rounded-lg px-3 py-1.5
+    text-xs font-semibold transition-colors
+    ${
+      isExpanded
+        ? "bg-zinc-900 text-white hover:bg-zinc-800"
+        : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
+    }
+  `}
+>
+
+  {isExpanded ? (
+    <>
+      <ChevronUp size={14} />
+      Collapse
+    </>
+  ) : (
+    <>
+      <Eye size={14} />
+      Preview Live
+    </>
+  )}
+
+</button>
                       )}
                       <a
                         href={`/documents/${doc.filename}`}
@@ -155,12 +171,18 @@ const PoliciesPage = () => {
 
                 {/* Live Full-Width Interactive Iframe Panel */}
                 {isPdf && isExpanded && (
-                  <div className="hidden md:flex border-t border-zinc-200 bg-zinc-100 p-2 w-full h-[400px]">
-                    <iframe
-                      src={`/documents/${doc.filename}#toolbar=1`}
-                      title={doc.name}
-                      className="w-full h-full rounded-md border border-zinc-300 bg-white"
-                    />
+                  <div className="w-full overflow-x-auto rounded-xl border border-zinc-200 bg-zinc-50">
+
+                    <div className="min-w-[700px] sm:min-w-0 h-[500px] sm:h-[700px]">
+
+                      <iframe
+                        src={`/documents/${doc.filename}#toolbar=1&view=FitH`}
+                        title={doc.name}
+                        className="h-full w-full rounded-xl bg-white"
+                      />
+
+                    </div>
+
                   </div>
                 )}
               </div>
@@ -168,11 +190,11 @@ const PoliciesPage = () => {
           })}
         </div>
         <button
-            onClick={() => window.history.back()}
-            className="h-11 mt-5 w-full rounded-lg bg-red-700 text-sm font-semibold text-white transition hover:bg-red-800"
-          >
-            Go Back
-          </button>
+          onClick={() => window.history.back()}
+          className="h-11 mt-5 w-full rounded-lg bg-red-700 text-sm font-semibold text-white transition hover:bg-red-800"
+        >
+          Go Back
+        </button>
       </main>
     </div>
   );

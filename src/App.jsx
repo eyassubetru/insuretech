@@ -6,13 +6,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LoginForm from "./components/LoginForm";
 
 import Header from "./components/Header";
-import HomePage from "./pages/HomePage";
 import CustomerHomePage from "./components/customer_home_page";
 import PoliciesPage from "./pages/PoliciesPage";
 import  Quote  from "./pages/Quote";
-import Renew from "./pages/Renew";
+import LifeInsurance from "./pages/LifeInsurance";
 
 import LoadingScreen from "./components/LoadingScreen";
+import MotorInsurance from "./pages/MotorInsurance";
 function App() {
   return (
     <Routes>
@@ -52,11 +52,22 @@ function App() {
         />
 
         <Route
-          path="/renew"
+          path="/life-insurance"
           element={
             <>
               <Header />
-              <Renew />
+              <LifeInsurance />
+            </>
+          }
+        />
+
+
+         <Route
+          path="/motor-insurance"
+          element={
+            <>
+              <Header />
+              <MotorInsurance />
             </>
           }
         />
